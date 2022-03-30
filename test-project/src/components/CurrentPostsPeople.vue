@@ -1,11 +1,14 @@
 <template>
   <div class="curentPost">
       <div class="twoBlockPosts" v-if="newExclusivePosts.length > 0">
+        <div class="absoluteImg">
+          <img src="@/assets/images/Group18.svg" alt="" style="right: 0%; position: relative">
+        </div>
       <div style="display: flex; justify-content: flex-end; align-items: center; width: 100%">
         <img src="@/assets/images/icon.svg" alt="" class="postsPeople">
         <div class="headPosts">3 актуальных поста {{array[id-1].name}}</div>
       </div>
-      <MySeparatePosts v-for="post in newExclusivePosts" :post="post" :key="post.id" />
+      <MySeparatePosts v-for="post in newExclusivePosts" :post="post" :key="post.id"/>
     </div>
   </div>
 </template>

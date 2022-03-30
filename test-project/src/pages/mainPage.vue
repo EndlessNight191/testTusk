@@ -1,9 +1,5 @@
 <template>
   <div style="max-width: 90%; margin: 0px auto; overflow: hidden">
-    <img src="@/assets/images/Group18.svg" alt="" class="absoluteImg">
-    <div class="absoluteImg2">
-      <img src="@/assets/images/Group18.svg" alt="" style="right: -30%; position: relative">
-    </div>
     <my-header/>
     <my-slider v-if="array.length > 1" @emitInfo="emitInfo"/>
     <CurrentPostsPeople :array="array" :id="idPeople" style="margin-bottom: 125px"/>

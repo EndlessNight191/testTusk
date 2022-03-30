@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="absoluteImg2">
+      <img src="@/assets/images/Group18.svg" alt="" style="right: -30%; position: relative">
+    </div>
     <div class="block__button">
       <my-button-left @click="buttonPrev"></my-button-left>
       <my-button-rigth @click="buttonNext"></my-button-rigth>
@@ -54,19 +57,19 @@ export default {
         }
       }else if(this.widthWindow < 780 && this.widthWindow > 600){
         if(this.existingPosition === 0){
-          this.existingPosition = 7
-          this.valuePosition = this.valuePosition - 320
+          this.existingPosition = 8
+          this.valuePosition = this.valuePosition - 420
         }else{
           this.existingPosition--
-          this.valuePosition = this.valuePosition + 55
+          this.valuePosition = this.valuePosition + 53
         }
       }else if(this.widthWindow <= 600){
         if(this.existingPosition === 0){
           this.existingPosition = 9
-          this.valuePosition = this.valuePosition - 975
+          this.valuePosition = this.valuePosition - 940
         }else{
           this.existingPosition--
-          this.valuePosition = this.valuePosition + 110
+          this.valuePosition = this.valuePosition + 105
         }
       }
     },
@@ -80,20 +83,20 @@ export default {
           this.valuePosition = this.valuePosition - 25
         }
       }else if(this.widthWindow < 780 && this.widthWindow > 600){
-        if(this.existingPosition === 7){
+        if(this.existingPosition === 8){
           this.existingPosition = 0
-          this.valuePosition = this.valuePosition + 320
+          this.valuePosition = this.valuePosition + 420
         }else{
           this.existingPosition++
-          this.valuePosition = this.valuePosition - 55
+          this.valuePosition = this.valuePosition - 53
         }
       }else if(this.widthWindow <= 600){
         if(this.existingPosition === 9){
           this.existingPosition = 0
-          this.valuePosition = this.valuePosition + 975
+          this.valuePosition = this.valuePosition + 940
         }else{
           this.existingPosition++
-          this.valuePosition = this.valuePosition - 110
+          this.valuePosition = this.valuePosition - 105
         }
       }
     },
