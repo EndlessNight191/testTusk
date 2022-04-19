@@ -9,7 +9,9 @@
     </div>
     <div class="SelfBlockSlider">
       <div :style="transformMain" class="Self">
-        <my-user v-for="item in array" @emitInfo="emitInfo" :activeCard="activeCard" :item="item" :position="existingPosition" :key="item.id"></my-user>
+        <div style="width: 5px; opacity: 0" ref="scrollAreaStart"></div>
+        <my-user v-for="item in array" @emitInfo="emitInfo" :activeCard="activeCard" :item="item" :key="item.id"></my-user>
+        <div style="width: 5px; opacity: 0" ref="scrollAreaEnd"></div>
       </div>
     </div>
   </div>
@@ -33,11 +35,12 @@ export default {
       widthWindow: 1200,
       array: this.posts,
       endPosition: this.posts.length,
-      existingPosition: 0,
+      startSlide: true,
+      endSlide: true,
       valuePosition: 0,
       transformMain: {
         transform: 'translateX(0%)',
-        animationName: '',
+        animationName: 'slideinNext1',
       }
     }
   },
@@ -47,79 +50,41 @@ export default {
       this.activeCard = item
     },
     buttonPrev(){
-      if(this.widthWindow > 1200){
-        if(this.existingPosition === 0){
-          this.existingPosition = 6
-          this.valuePosition = this.valuePosition - 150
-        }else{
-          this.existingPosition--
-          this.valuePosition = this.valuePosition + 25
+        if(this.startSlide) {
+          if (this.widthWindow > 1200) {
+            this.valuePosition += 25
+          } else if (this.widthWindow < 1200 && this.widthWindow > 600) {
+            this.valuePosition += 53
+          } else if (this.widthWindow <= 600) {
+            this.valuePosition += 105
+          }
         }
-      }else if(this.widthWindow < 780 && this.widthWindow > 600){
-        if(this.existingPosition === 0){
-          this.existingPosition = 8
-          this.valuePosition = this.valuePosition - 420
-        }else{
-          this.existingPosition--
-          this.valuePosition = this.valuePosition + 53
-        }
-      }else if(this.widthWindow <= 600){
-        if(this.existingPosition === 0){
-          this.existingPosition = 9
-          this.valuePosition = this.valuePosition - 940
-        }else{
-          this.existingPosition--
-          this.valuePosition = this.valuePosition + 105
-        }
-      }
-    },
+        this.endSlide = true
+      },
     buttonNext(){
-      if(this.widthWindow > 1200){
-        if(this.existingPosition === 6){
-          this.existingPosition = 0
-          this.valuePosition = this.valuePosition + 150
-        }else{
-          this.existingPosition++
-          this.valuePosition = this.valuePosition - 25
-        }
-      }else if(this.widthWindow < 780 && this.widthWindow > 600){
-        if(this.existingPosition === 8){
-          this.existingPosition = 0
-          this.valuePosition = this.valuePosition + 420
-        }else{
-          this.existingPosition++
-          this.valuePosition = this.valuePosition - 53
-        }
-      }else if(this.widthWindow <= 600){
-        if(this.existingPosition === 9){
-          this.existingPosition = 0
-          this.valuePosition = this.valuePosition + 940
-        }else{
-          this.existingPosition++
-          this.valuePosition = this.valuePosition - 105
+      if(this.endSlide){
+        if(this.widthWindow > 1200){
+          this.valuePosition -= 25
+        }else if(this.widthWindow < 1200 && this.widthWindow > 600){
+          this.valuePosition -= 53
+        }else if(this.widthWindow <= 600){
+          this.valuePosition -= 105
         }
       }
+      this.startSlide = true
     },
     onResize() {
       this.widthWindow = window.innerWidth
     }
   },
   watch:{
-    existingPosition(newLet, oldLet){
-      let sum = ''
-
-      if(this.widthWindow < 780 && this.widthWindow > 600){
-        sum = 1
-      }else if(this.widthWindow <= 600){
-        sum = 2
-      }
-
+    valuePosition(newLet, oldLet){
       if(newLet > oldLet){
-        this.transformMain.transform = `translateX(${this.valuePosition}%)`
-        this.transformMain.animationName = `slideinNext${sum}`
+        this.transformMain.transform = `translateX(${newLet}%)`
+        this.transformMain.animationName = `slideinNext2`
       }else{
-        this.transformMain.transform = `translateX(${this.valuePosition}%)`
-        this.transformMain.animationName = `slideinPrevie${sum}`
+        this.transformMain.transform = `translateX(${newLet}%)`
+        this.transformMain.animationName = `slideinPrevie1`
       }
     }
   },
@@ -128,6 +93,29 @@ export default {
     window.addEventListener('resize', this.onResize);
     this.onResize();
   },
+  mounted() {
+    let self = this
+    const options = {
+      rootMargin: '0px',
+      threshold: 0.1
+    }
+    const callbackEnd = function(entries) {
+      if(entries[0].isIntersecting){
+        self.endSlide = false
+      }
+    };
+
+    const callbackStart = function(entries) {
+      if(entries[0].isIntersecting){
+        self.startSlide = false
+      }
+    };
+
+    const observerEnd = new IntersectionObserver(callbackEnd, options);
+    const observerStart = new IntersectionObserver(callbackStart, options);
+    observerEnd.observe(this.$refs.scrollAreaEnd);
+    observerStart.observe(this.$refs.scrollAreaStart);
+  }
 }
 </script>
 

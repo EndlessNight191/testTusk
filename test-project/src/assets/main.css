@@ -89,14 +89,16 @@ svg{
     height: 60%;
     width: 100%;
     border-bottom: 3px solid white;
-    min-height: 50%
+    min-height: 50%;
+    cursor: pointer;
 }
 
 .imgUserActive{
     height: 60%;
     width: 100%;
     border-bottom: 3px solid #FE8700;
-    min-height: 50%
+    min-height: 50%;
+    cursor: pointer;
 }
 
 

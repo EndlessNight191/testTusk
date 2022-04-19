@@ -12,7 +12,6 @@ export default {
   name: "MyUser",
   props:{
     item: Object,
-    position: Number,
     activeCard: {
       type: Number,
       default: 1,
@@ -29,19 +28,6 @@ export default {
       this.$emit('emitInfo', this.item.id)
     },
   },
-/*  async created() {
-    const config = {
-        responseType: 'arraybuffer'
-    };
-
-    axios.get(`https://i.pravatar.cc/150?img=${this.item.id}`, config)
-    .then(response => {
-      let img = btoa(response.data);
-      console.log(img)
-      this.imageData = 'data:image/jpeg;base64,' + img;
-      console.log(this.imageData)
-    })
-  }*/
 }
 </script>
 

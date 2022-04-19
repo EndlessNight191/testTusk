@@ -28,7 +28,6 @@ export default {
   },
   methods:{
     emitInfo(item){
-      console.log(item)
       this.idPeople = item
     }
   },

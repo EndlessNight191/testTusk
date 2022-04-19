@@ -43,17 +43,17 @@ export default {
   },
   async mounted() {
     await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${this.id}`)
-    .then(response => {
-        this.peoplePosts = response.data
-        console.log('OK')
-    })
-    .catch(e => {
-      console.log(e + 'ошибка')
-    })
+          .then(response => {
+              this.peoplePosts = response.data
+              console.log('OK')
+          })
+          .catch(e => {
+            console.log(e + 'ошибка')
+          })
   },
   watch: {
-    async id(){
-      await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${this.id}`)
+      id(valueID){
+       axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${valueID}`)
           .then(response => {
             this.peoplePosts = response.data
             console.log('OK')
@@ -63,11 +63,11 @@ export default {
           })
     },
 
-    peoplePosts(){
+    async peoplePosts(){
       let arr = []
       let bolen = true
       for (let i = 0; i <= this.peoplePosts.length * 2; i++) {
-        let number = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
+        let number = Math.floor(Math.random() * (9 - 0) + 0);
 
         for (let j = 0; j < arr.length; j++) {
 
